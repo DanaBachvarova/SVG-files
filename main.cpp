@@ -1,12 +1,11 @@
 #include <iostream>
-#include "circle.cpp"
-#include "rect.cpp"
-#include "line.cpp"
+#include "circle.hpp"
+#include "rect.hpp"
+#include "line.hpp"
 
 int main()
 {
     Point x = {0, 0};
-    Point y = {1, 1};
-    Line line = Line(x, y, "blue");
-    line.print();
+    Circle circle = Circle(x, 10, "yellow");
+    circle.print();
 }
