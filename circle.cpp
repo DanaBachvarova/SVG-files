@@ -2,7 +2,7 @@
 #include <cmath>
 #include "point.hpp"
 
-Circle::Circle(Point _center, double _radius, const char* _colour):center(_center), radius(_radius), colour(_colour)
+Circle::Circle(Point _center, double _radius, const char* _colour):center(_center), radius(_radius), Figure(_colour)
 {
 }
 

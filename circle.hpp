@@ -12,5 +12,4 @@ class Circle : public Figure
     private:
     Point center;
     double radius;
-    const char* colour;
 };

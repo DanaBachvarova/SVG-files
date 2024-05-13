@@ -12,5 +12,4 @@ class Line : public Figure
     private:
     Point start;
     Point end;
-    const char* colour;
 };

@@ -10,6 +10,8 @@ class Figure
     
     virtual void print() const = 0;
 
+    Figure(const char*);
+
     virtual ~Figure()
     {
         delete[] colour;
@@ -20,7 +22,7 @@ class Figure
         return colour;
     }
 
-    private:
+    protected:
 
     const char* colour;
 };

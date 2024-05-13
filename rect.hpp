@@ -13,5 +13,4 @@ class Rect : public Figure
     Point vertex;
     double width;
     double height;
-    const char* colour;
 };
