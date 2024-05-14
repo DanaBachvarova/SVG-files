@@ -2,10 +2,15 @@
 #include "circle.hpp"
 #include "rect.hpp"
 #include "line.hpp"
+#include "fileManager.hpp"
+#include <cstring>
 
 int main()
 {
-    Point x = {0, 0};
-    Circle circle = Circle(x, 10, "yellow");
-    circle.print();
+    FileManager& fileManager = FileManager::getInstance();
+    std::string argument;
+
+    if (!fileManager.openFile(argument)){
+        std::cout<<"Failed to open the file."<<std::endl;
+    }
 }
