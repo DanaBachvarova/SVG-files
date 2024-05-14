@@ -2,11 +2,11 @@
 #include <cmath>
 #include "point.hpp"
 
-Circle::Circle(Point _center, double _radius, const char* _colour):center(_center), radius(_radius), Figure(_colour)
+Circle::Circle(Point _center, double _radius, const char *_colour) : center(_center), radius(_radius), Figure(_colour)
 {
 }
 
 void Circle::print() const
 {
-    std::cout<<"circle "<<center.x<<" "<<center.y<<" "<<radius<<" "<<colour<<std::endl;
+    std::cout << "circle " << center.x << " " << center.y << " " << radius << " " << colour << std::endl;
 }
