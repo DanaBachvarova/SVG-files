@@ -8,6 +8,7 @@ class Rect : public Figure
     public:
     Rect(Point, double, double, std::string);
     void print() const;
+    bool within(std::string) const;
 
     private:
     Point vertex;
