@@ -1,7 +1,9 @@
 #include "line.hpp"
 #include "point.hpp"
+#include "figure.hpp"
+#include <iostream>
 
-Line::Line(Point _start, Point _end, const char* _colour) : start(_start), end(_end), Figure(_colour)
+Line::Line(Point start, Point end, std::string colour) : start(start), end(end), Figure(colour)
 {
 }
 

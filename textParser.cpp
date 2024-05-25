@@ -1,10 +1,18 @@
+#include "textParser.hpp"
 #include <iostream>
 #include <cstring>
 #include <vector>
 #include <sstream>
-#include "textParser.hpp"
 
-std::vector<std::string> splitInput(const std::string &userInput)
+TextParser &TextParser::getInstance()
+{
+    static TextParser instance;
+    return instance;
+}
+
+TextParser::TextParser() {}
+
+std::vector<std::string> TextParser::splitInput(const std::string &userInput)
 {
     std::istringstream iss(userInput);
     std::vector<std::string> substrings;
@@ -16,3 +24,4 @@ std::vector<std::string> splitInput(const std::string &userInput)
 
     return substrings;
 }
+

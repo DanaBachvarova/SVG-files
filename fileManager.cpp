@@ -1,8 +1,9 @@
 #include "fileManager.hpp"
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <vector>
 #include <fstream>
+#include <cstddef>
 
 FileManager &FileManager::getInstance()
 {
@@ -120,4 +121,9 @@ void FileManager::displayHelp() const
               << "saveas" << std::endl
               << "help" << std::endl
               << "exit" << std::endl;
+}
+
+std::vector<std::string> FileManager::getContents() const
+{
+    return fileContents;
 }

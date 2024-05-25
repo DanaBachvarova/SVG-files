@@ -1,8 +1,10 @@
 #include "circle.hpp"
-#include <cmath>
+#include "figure.hpp"
 #include "point.hpp"
+#include <cmath>
+#include <iostream>
 
-Circle::Circle(Point _center, double _radius, const char *_colour) : center(_center), radius(_radius), Figure(_colour)
+Circle::Circle(Point center, double radius, std::string colour) : center(center), radius(radius), Figure(colour)
 {
 }
 

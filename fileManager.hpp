@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <vector>
 
 class FileManager
@@ -14,6 +14,7 @@ public:
     bool saveFile() const;
     bool saveFileAs(const std::string&) const;
     void displayHelp() const;
+    std::vector<std::string> getContents() const;
 
 private:
     std::string filePath;

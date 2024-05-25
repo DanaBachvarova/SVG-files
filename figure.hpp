@@ -6,23 +6,13 @@
 
 class Figure
 {
-    public:
-    
+public:
     virtual void print() const = 0;
 
-    Figure(const char*);
+    Figure(std::string);
+    virtual ~Figure();
+    std::string getColour() const;
 
-    virtual ~Figure()
-    {
-        delete[] colour;
-    }
-
-    const char* getColour() const
-    {
-        return colour;
-    }
-
-    protected:
-
-    const char* colour;
+protected:
+    std::string colour;
 };

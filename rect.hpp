@@ -6,7 +6,7 @@
 class Rect : public Figure
 {
     public:
-    Rect(Point, double, double, const char*);
+    Rect(Point, double, double, std::string);
     void print() const;
 
     private:

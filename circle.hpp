@@ -6,7 +6,7 @@
 class Circle : public Figure
 {
     public:
-    Circle(Point, double, const char*);
+    Circle(Point, double, std::string);
     void print() const;
 
     private:

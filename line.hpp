@@ -6,7 +6,7 @@
 class Line : public Figure
 {
     public:
-    Line(Point, Point, const char*);
+    Line(Point, Point, std::string);
     void print() const;
 
     private:
