@@ -76,7 +76,6 @@ Figure *SVGParser::getFigureFromStr(char* figureStr)
         token = std::strtok(nullptr, " ");
         char *attrName = std::strtok(token, "=");
         char *attrValue = std::strtok(nullptr, "=");
-        attrValue++;
         attrValue[std::strlen(attrValue) - 1] = '\0';
 
         attributes.push_back(SVGAttribute(attrName, attrValue));

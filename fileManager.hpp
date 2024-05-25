@@ -16,6 +16,9 @@ public:
     bool saveFileAs(const std::string&) const;
     void displayHelp() const;
     std::vector<std::string> getContents() const;
+    std::vector<Figure*> getFiguresInFile() const;
+    void erase(std::size_t);
+    
 
 private:
     std::string filePath;

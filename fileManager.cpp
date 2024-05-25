@@ -131,3 +131,13 @@ std::vector<std::string> FileManager::getContents() const
 {
     return fileContents;
 }
+
+std::vector<Figure *> FileManager::getFiguresInFile() const
+{
+    return figuresInFile;
+}
+
+void FileManager::erase(std::size_t index)
+{
+    figuresInFile.erase(figuresInFile.begin() + index);
+}

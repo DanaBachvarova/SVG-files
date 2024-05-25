@@ -10,7 +10,8 @@ class FiguresManager
 {
 public:
     static FiguresManager& getInstance();
-    static Figure* createNewFigure(std::string input);
+    void print() const;
+    Figure* create(std::string&);
 
 private:
     FiguresManager();
