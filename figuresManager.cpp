@@ -1,4 +1,5 @@
 #include "figuresManager.hpp"
+#include "fileManager.hpp"
 #include "figure.hpp"
 #include "circle.hpp"
 #include "rect.hpp"

@@ -1,7 +1,7 @@
 #include "circle.hpp"
 #include "figure.hpp"
 #include "point.hpp"
-#include "textParser.hpp"
+#include "SVGParser.hpp"
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -18,5 +18,12 @@ void Circle::print() const
 
 bool Circle::within(const std::string &userInput) const
 {
-    
+    return false;
+}
+
+std::string Circle::toSVG() const
+{
+    std::string result = "<circle cx=\"" + std::to_string(center.x) + "\" cy=\"" + std::to_string(center.y) + "\" r=\"" + std::to_string(radius) + "\" fill=\"" + colour + "\" />";
+
+    return result;
 }

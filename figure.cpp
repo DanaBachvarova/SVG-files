@@ -6,6 +6,4 @@
 #include "rect.hpp"
 #include "line.hpp"
 
-Figure::Figure(std::string colour) : colour(colour)
-{
-}
+Figure::Figure(std::string colour) : colour(colour) {}

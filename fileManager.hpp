@@ -1,5 +1,6 @@
 #pragma once
 
+#include "figure.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,6 +21,7 @@ private:
     std::string filePath;
     bool fileLoaded;
     std::vector<std::string> fileContents;
+    std::vector<Figure*> figuresInFile;
     
     FileManager();
     FileManager(FileManager const&) = delete;

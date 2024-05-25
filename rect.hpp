@@ -5,12 +5,13 @@
 
 class Rect : public Figure
 {
-    public:
+public:
     Rect(Point, double, double, std::string);
     void print() const;
     bool within(std::string) const;
+    std::string toSVG() const;
 
-    private:
+private:
     Point vertex;
     double width;
     double height;

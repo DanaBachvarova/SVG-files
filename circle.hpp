@@ -5,12 +5,13 @@
 
 class Circle : public Figure
 {
-    public:
+public:
     Circle(Point, double, std::string);
     void print() const;
-    bool within(const std::string&) const;
+    bool within(const std::string &) const;
+    std::string toSVG() const;
 
-    private:
+private:
     Point center;
     double radius;
 };

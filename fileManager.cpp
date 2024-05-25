@@ -1,6 +1,8 @@
 #include "fileManager.hpp"
+#include "SVGParser.hpp"
+#include "figure.hpp"
 #include <iostream>
-#include <string>
+#include <cstring>
 #include <vector>
 #include <fstream>
 #include <cstddef>
@@ -33,13 +35,9 @@ bool FileManager::openFile(const std::string &path)
         return true;
     }
 
-    std::string line;
     fileContents.clear();
 
-    while (std::getline(file, line))
-    {
-        fileContents.push_back(line);
-    }
+    figuresInFile = SVGParser::getInstance().getFiguresFromFile(file);
 
     file.close();
     fileLoaded = true;
@@ -54,6 +52,12 @@ void FileManager::closeFile()
     {
         fileLoaded = false;
         fileContents.clear();
+
+        for (auto figure : figuresInFile)
+        {
+            delete figure;
+        }
+
         std::cout << "Successfully closed file " << filePath << std::endl;
     }
     else
