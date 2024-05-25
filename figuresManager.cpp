@@ -72,9 +72,3 @@ Figure *FiguresManager::create(std::string &input)
         throw std::invalid_argument("Invalid figure type: " + tokens[1]);
     }
 }
-
-
-// static Figure* FiguresManager::createNewFigure(std::string input)
-// {
-
-// }

@@ -141,3 +141,5 @@ void FileManager::erase(std::size_t index)
 {
     figuresInFile.erase(figuresInFile.begin() + index);
 }
+
+

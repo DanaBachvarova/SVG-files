@@ -11,8 +11,9 @@ public:
 
     Figure(std::string);
     std::string getColour() const;
-    //virtual bool within(std::string) const = 0;
+    virtual bool within(std::string) const = 0;
     virtual std::string toSVG() const = 0;
+    virtual void translate(std::string &) = 0;
 
 protected:
     std::string colour;

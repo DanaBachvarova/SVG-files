@@ -10,6 +10,8 @@ public:
     void print() const;
     bool within(const std::string &) const;
     std::string toSVG() const;
+    void translate(std::string &input);
+    bool within(std::string) const;
 
 private:
     Point center;

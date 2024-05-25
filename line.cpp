@@ -19,7 +19,24 @@ std::string Line::toSVG() const
     return result;
 }
 
-// bool Line::within(std::string input) const
-// {
-//     return false;
-// }
+void Line::translate(std::string &input)
+{
+    size_t posVertical = input.find("vertical=");
+    size_t startVertical = posVertical + 9;
+    size_t endVertical = input.find(" ", startVertical);
+    double vertical = std::stod(input.substr(startVertical, endVertical - startVertical));
+
+    size_t posHorizontal = input.find("horizontal=");
+    size_t startHorizontal = posHorizontal + 11;
+    double horizontal = std::stod(input.substr(startHorizontal));
+
+    start.x += horizontal;
+    end.x += horizontal;
+    start.y += vertical;
+    end.y += vertical;
+}
+
+bool Line::within(std::string) const
+{
+    return false;
+}
