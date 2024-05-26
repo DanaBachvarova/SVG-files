@@ -81,9 +81,9 @@ bool FileManager::saveFile() const
         return false;
     }
 
-    for (size_t i = 0; i < fileContents.size(); i++)
+    for (size_t i = 0; i < figuresInFile.size(); i++)
     {
-        file << fileContents[i] << std::endl;
+        file << figuresInFile[i]->toSVG() << std::endl;
     }
 
     file.close();
@@ -106,9 +106,9 @@ bool FileManager::saveFileAs(const std::string &newPath) const
         return false;
     }
 
-    for (size_t i; i < fileContents.size(); i++)
+    for (size_t i; i < figuresInFile.size(); i++)
     {
-        file << fileContents[i] << std::endl;
+        file << figuresInFile[i]->toSVG() << std::endl;
     }
 
     file.close();
@@ -142,4 +142,11 @@ void FileManager::erase(std::size_t index)
     figuresInFile.erase(figuresInFile.begin() + index);
 }
 
-
+void FileManager::translate(std::string &input)
+{
+    //should add the case with index
+    for (auto figure : figuresInFile)
+    {
+        figure->translate(input);
+    }
+}

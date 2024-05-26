@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 Circle::Circle(Point center, double radius, std::string colour) : center(center), radius(radius), Figure(colour)
 {
@@ -43,7 +44,28 @@ void Circle::translate(std::string &input)
     center.y = center.y + vertical;
 }
 
-bool Circle::within(std::string) const
+bool Circle::within(std::string &input) const
 {
-    return false;
+    std::istringstream iss(input);
+    std::string token;
+    std::vector<std::string> tokens;
+
+    while (std::getline(iss, token, ' '))
+    {
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+    }
+
+    if (tokens[1] == "rectangle")
+    {
+    }
+    else if (tokens[1] == "circle")
+    {
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid region type: " + tokens[1]);
+    }
 }

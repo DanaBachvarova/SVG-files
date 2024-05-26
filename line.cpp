@@ -2,6 +2,9 @@
 #include "point.hpp"
 #include "figure.hpp"
 #include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
 
 Line::Line(Point start, Point end, std::string colour) : start(start), end(end), Figure(colour)
 {
@@ -36,7 +39,28 @@ void Line::translate(std::string &input)
     end.y += vertical;
 }
 
-bool Line::within(std::string) const
+bool Line::within(std::string &input) const
 {
-    return false;
+    std::istringstream iss(input);
+    std::string token;
+    std::vector<std::string> tokens;
+
+    while (std::getline(iss, token, ' '))
+    {
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+    }
+
+    if (tokens[1] == "rectangle")
+    {
+    }
+    else if (tokens[1] == "circle")
+    {
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid region type: " + tokens[1]);
+    }
 }
