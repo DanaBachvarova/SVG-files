@@ -18,7 +18,10 @@ public:
     std::vector<std::string> getContents() const;
     std::vector<Figure*> getFiguresInFile() const;
     void erase(std::size_t);
-    void translate(std::string&);
+    void translateAll(double, double);
+    void print() const;
+    Figure* create(std::string&);
+
     
 
 private:

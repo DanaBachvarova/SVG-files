@@ -1,11 +1,15 @@
 #include "fileManager.hpp"
 #include "SVGParser.hpp"
 #include "figure.hpp"
+#include "circle.hpp"
+#include "line.hpp"
+#include "rect.hpp"
 #include <iostream>
 #include <cstring>
 #include <vector>
 #include <fstream>
 #include <cstddef>
+#include <sstream>
 
 FileManager &FileManager::getInstance()
 {
@@ -58,6 +62,8 @@ void FileManager::closeFile()
             delete figure;
         }
 
+        figuresInFile.clear();
+
         std::cout << "Successfully closed file " << filePath << std::endl;
     }
     else
@@ -81,10 +87,17 @@ bool FileManager::saveFile() const
         return false;
     }
 
+    file << "<svg>" << std::endl;
+
+    std::cout<<figuresInFile.size()<<std::endl;
+
     for (size_t i = 0; i < figuresInFile.size(); i++)
     {
         file << figuresInFile[i]->toSVG() << std::endl;
+        std::cout<<i<<std::endl;
     }
+
+    file << "<svg/>" << std::endl;
 
     file.close();
     std::cout << "Successfully saved file " << filePath << std::endl;
@@ -140,13 +153,69 @@ std::vector<Figure *> FileManager::getFiguresInFile() const
 void FileManager::erase(std::size_t index)
 {
     figuresInFile.erase(figuresInFile.begin() + index);
+    std::cout<<"Successfully erased figure."<<std::endl;
 }
 
-void FileManager::translate(std::string &input)
+void FileManager::translateAll(double vertical, double horizontal)
 {
-    //should add the case with index
     for (auto figure : figuresInFile)
     {
-        figure->translate(input);
+        figure->translate(vertical, horizontal);
+    }
+}
+
+void FileManager::print() const
+{
+    std::vector<Figure *> figures = FileManager::getInstance().getFiguresInFile();
+
+    for (auto figure : figures)
+    {
+        figure->print();
+    }
+}
+
+Figure *FileManager::create(std::string &input)
+{
+    std::istringstream iss(input);
+    std::string token;
+    std::vector<std::string> tokens;
+
+    while (std::getline(iss, token, ' '))
+    {
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+    }
+
+    if (tokens[1] == "rectangle")
+    {
+        double vx = std::stod(tokens[2]);
+        double vy = std::stod(tokens[3]);
+        double width = std::stod(tokens[4]);
+        double height = std::stod(tokens[5]);
+
+        return new Rect(Point{vx, vy}, width, height, tokens[6]);
+    }
+    else if (tokens[1] == "circle")
+    {
+        double cx = std::stod(tokens[2]);
+        double cy = std::stod(tokens[3]);
+        double radius = std::stod(tokens[4]);
+
+        return new Circle(Point{cx, cy}, radius, tokens[5]);
+    }
+    else if (tokens[1] == "line")
+    {
+        double sx = std::stod(tokens[2]);
+        double sy = std::stod(tokens[3]);
+        double ex = std::stod(tokens[4]);
+        double ey = std::stod(tokens[5]);
+
+        return new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]);
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid figure type: " + tokens[1]);
     }
 }

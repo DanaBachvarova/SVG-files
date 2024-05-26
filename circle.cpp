@@ -29,17 +29,8 @@ std::string Circle::toSVG() const
     return result;
 }
 
-void Circle::translate(std::string &input)
+void Circle::translate(double vertical, double horizontal)
 {
-    size_t posVertical = input.find("vertical=");
-    size_t startVertical = posVertical + 9;
-    size_t endVertical = input.find(" ", startVertical);
-    double vertical = std::stod(input.substr(startVertical, endVertical - startVertical));
-
-    size_t posHorizontal = input.find("horizontal=");
-    size_t startHorizontal = posHorizontal + 11;
-    double horizontal = std::stod(input.substr(startHorizontal));
-
     center.x = center.x + horizontal;
     center.y = center.y + vertical;
 }

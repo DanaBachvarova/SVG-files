@@ -42,7 +42,6 @@ std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
     bool foundFigures = false;
     for (std::string line; std::getline(file, line);)
     {
-        // std::cout<<line<<'\n';
         if (std::strstr(line.c_str(), "</svg>"))
         {
             foundFigures = false;
@@ -54,7 +53,7 @@ std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
             char *figureStrEnd = std::strstr(figureStr, "/>");
             *figureStrEnd = '\0';
             std::string figureString(figureStr);
-            std::cout << figureString << std::endl;
+            //std::cout << figureString << std::endl;
             figures.push_back(getFigureFromStr(figureStr));
         }
 

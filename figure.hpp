@@ -12,7 +12,7 @@ public:
     Figure(std::string);
     std::string getColour() const;
     virtual std::string toSVG() const = 0;
-    virtual void translate(std::string &) = 0;
+    virtual void translate(double, double) = 0;
     virtual bool withinRect(double, double, double, double) const = 0;
     virtual bool withinCircle(double, double, double) const = 0;
 
