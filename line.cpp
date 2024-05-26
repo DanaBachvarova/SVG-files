@@ -1,10 +1,12 @@
 #include "line.hpp"
 #include "point.hpp"
 #include "figure.hpp"
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 Line::Line(Point start, Point end, std::string colour) : start(start), end(end), Figure(colour)
 {
@@ -39,28 +41,29 @@ void Line::translate(std::string &input)
     end.y += vertical;
 }
 
-bool Line::within(std::string &input) const
+bool Line::withinRect(double vx, double vy, double width, double height) const
 {
-    std::istringstream iss(input);
-    std::string token;
-    std::vector<std::string> tokens;
-
-    while (std::getline(iss, token, ' '))
+    if ((start.x >= vx && start.x <= vx + width) && (start.y >= vy && start.y <= vy + height) && (end.x >= vx && end.x <= vx + width) && (end.y >= vy && end.y <= vy + height))
     {
-        if (!token.empty())
-        {
-            tokens.push_back(token);
-        }
-    }
-
-    if (tokens[1] == "rectangle")
-    {
-    }
-    else if (tokens[1] == "circle")
-    {
+        return true;
     }
     else
     {
-        throw std::invalid_argument("Invalid region type: " + tokens[1]);
+        return false;
+    }
+}
+
+bool Line::withinCircle(double cx, double cy, double radius) const
+{
+    double d1 = sqrt(pow(cx - start.x, 2) + pow(cy - start.y, 2));
+    double d2 = sqrt(pow(cx - end.x, 2) + pow(cy - end.y, 2));
+
+    if (d1 <= radius && d2 <= radius)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

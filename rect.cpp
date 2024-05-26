@@ -6,6 +6,7 @@
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <cmath>
 
 Rect::Rect(Point vertex, double width, double height, std::string colour) : vertex(vertex), width(width), height(height), Figure(colour) {}
 
@@ -36,28 +37,32 @@ void Rect::translate(std::string &input)
     vertex.y += vertical;
 }
 
-bool Rect::within(std::string &input) const
+bool Rect::withinRect(double vx, double vy, double regionWidth, double regionHeight) const
 {
-    std::istringstream iss(input);
-    std::string token;
-    std::vector<std::string> tokens;
-
-    while (std::getline(iss, token, ' '))
+    if (vertex.x < vx || vertex.y < vy)
     {
-        if (!token.empty())
-        {
-            tokens.push_back(token);
-        }
+        return false;
     }
 
-    if (tokens[1] == "rectangle")
+    if (vertex.x + width > vx + regionWidth || vertex.y + height > vy + regionHeight)
     {
+        return false;
     }
-    else if (tokens[1] == "circle")
+
+    return true;
+}
+
+bool Rect::withinCircle(double cx, double cy, double radius) const
+{
+    double d1 = sqrt(pow(cx - vertex.x, 2) + pow(cy - vertex.y, 2));
+    double d2 = sqrt(pow(cx - vertex.x, 2) + pow(cy - (vertex.y + height), 2));
+    double d3 = sqrt(pow(cx - (vertex.x + width), 2) + pow(cy - vertex.y, 2));
+    double d4 = sqrt(pow(cx - (vertex.x + width), 2) + pow(cy - (vertex.y + height), 2));
+
+    if (d1 <= radius && d2 <= radius && d3 <= radius && d4 <= radius)
     {
+        return true;
     }
-    else
-    {
-        throw std::invalid_argument("Invalid region type: " + tokens[1]);
-    }
+
+    return false;
 }

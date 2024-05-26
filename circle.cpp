@@ -44,28 +44,24 @@ void Circle::translate(std::string &input)
     center.y = center.y + vertical;
 }
 
-bool Circle::within(std::string &input) const
+bool Circle::withinRect(double vx, double vy, double width, double height) const
 {
-    std::istringstream iss(input);
-    std::string token;
-    std::vector<std::string> tokens;
-
-    while (std::getline(iss, token, ' '))
+    if (center.x - radius >= vx && center.x + radius <= vx + width && center.y - radius >= vy && center.y + radius <= vy + height)
     {
-        if (!token.empty())
-        {
-            tokens.push_back(token);
-        }
+        return true;
     }
 
-    if (tokens[1] == "rectangle")
+    return false;
+}
+
+bool Circle::withinCircle(double cx, double cy, double regionRadius) const
+{
+    double d = sqrt(pow(cx - center.x, 2) + pow(cy - center.y, 2));
+
+    if (d <= regionRadius - radius)
     {
+        return true;
     }
-    else if (tokens[1] == "circle")
-    {
-    }
-    else
-    {
-        throw std::invalid_argument("Invalid region type: " + tokens[1]);
-    }
+
+    return false;
 }
