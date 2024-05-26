@@ -21,6 +21,6 @@ public:
 private:
     CommandsManager();
     CommandsManager(CommandsManager const&) = delete;
-    CommandsManager(CommandsManager const&) = delete;
+    void operator=(CommandsManager const&) = delete;
 };
 

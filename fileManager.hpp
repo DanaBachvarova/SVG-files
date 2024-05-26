@@ -27,6 +27,7 @@ private:
     std::vector<std::string> fileContents;
     std::vector<Figure*> figuresInFile;
     
+    
     FileManager();
     FileManager(FileManager const&) = delete;
     void operator=(FileManager const&) = delete;

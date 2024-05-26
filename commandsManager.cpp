@@ -13,6 +13,14 @@
 #include <cstring>
 #include "commandsManager.hpp"
 
+CommandsManager &CommandsManager::getInstance()
+{
+    static CommandsManager instance;
+    return instance;
+}
+
+CommandsManager::CommandsManager() {}
+
 void CommandsManager::getCommand(std::string &input)
 {
     std::istringstream iss(input);

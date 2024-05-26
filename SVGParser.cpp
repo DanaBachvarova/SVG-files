@@ -38,11 +38,11 @@ std::vector<std::string> SVGParser::getTokens()
 
 std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
 {
-    std::vector<Figure*> figures;
-    bool foundFigures = false; 
+    std::vector<Figure *> figures;
+    bool foundFigures = false;
     for (std::string line; std::getline(file, line);)
     {
-        std::cout<<line<<'\n';
+        // std::cout<<line<<'\n';
         if (std::strstr(line.c_str(), "</svg>"))
         {
             foundFigures = false;
@@ -53,7 +53,8 @@ std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
             char *figureStr = std::strchr(line.c_str(), '<') + 1;
             char *figureStrEnd = std::strstr(figureStr, "/>");
             *figureStrEnd = '\0';
-
+            std::string figureString(figureStr);
+            std::cout << figureString << std::endl;
             figures.push_back(getFigureFromStr(figureStr));
         }
 
@@ -66,19 +67,33 @@ std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
     return figures;
 }
 
-Figure *SVGParser::getFigureFromStr(char* figureStr)
+Figure *SVGParser::getFigureFromStr(std::string figureStr)
 {
     std::vector<SVGAttribute> attributes;
-    char *token = std::strtok(figureStr, " ");
-    std::string figureType(token);
-    while (token)
-    {
-        token = std::strtok(nullptr, " ");
-        char *attrName = std::strtok(token, "=");
-        char *attrValue = std::strtok(nullptr, "=");
-        attrValue[std::strlen(attrValue) - 1] = '\0';
 
-        attributes.push_back(SVGAttribute(attrName, attrValue));
+    std::istringstream iss(figureStr);
+    std::string token;
+    std::vector<std::string> tokens;
+
+    while (std::getline(iss, token, ' '))
+    {
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+    }
+
+    std::string figureType = tokens[0];
+
+    for (int i = 1; i < tokens.size(); i++)
+    {
+        int pos = tokens[i].find('=');
+
+        std::string attrName = tokens[i].substr(0, pos);
+        std::string attrValue = tokens[i].substr(pos + 1);
+        attrValue = attrValue.substr(1, attrValue.size() - 2);
+
+        attributes.emplace_back(attrName, attrValue);
     }
 
     if (figureType == "rect")

@@ -12,7 +12,7 @@ public:
     void splitInput(const std::string &);
     std::vector<std::string> getTokens();
     std::vector<Figure*> getFiguresFromFile(std::ifstream&);
-    Figure* getFigureFromStr(char*);
+    Figure* getFigureFromStr(std::string);
 
 private:
     SVGParser();
