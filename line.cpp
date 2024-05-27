@@ -58,3 +58,8 @@ bool Line::withinCircle(double cx, double cy, double radius) const
         return false;
     }
 }
+
+std::string Line::getType() const
+{
+    return "line";
+}

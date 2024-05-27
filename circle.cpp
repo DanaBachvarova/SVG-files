@@ -56,3 +56,8 @@ bool Circle::withinCircle(double cx, double cy, double regionRadius) const
 
     return false;
 }
+
+std::string Circle::getType() const
+{
+    return "circle";
+}

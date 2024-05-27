@@ -46,6 +46,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "open")
     {
+        if (fileLoaded)
+        {
+            std::cout<<"File already loaded!\n";
+            return;
+        }
+
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";
@@ -69,6 +75,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "close")
     {
+        if (!fileLoaded)
+        {
+            std::cout<<"No file loaded!\n";
+            return;
+        }
+
         if (command.size() > 1)
         {
             std::cout << "Expected fewer arguments!\n";
@@ -86,6 +98,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "save")
     {
+        if (!fileLoaded)
+        {
+            std::cout<<"No file loaded!\n";
+            return;
+        }
+
         if (command.size() > 1)
         {
             std::cout << "Expected fewer arguments!\n";
@@ -98,6 +116,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "saveas")
     {
+        if (!fileLoaded)
+        {
+            std::cout<<"No file loaded!\n";
+            return;
+        }
+        
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";

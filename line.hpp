@@ -13,6 +13,7 @@ public:
     void translate(double, double);
     bool withinRect(double, double, double, double) const;
     bool withinCircle(double, double, double) const;
+    std::string getType() const;
 
 private:
     Point start;

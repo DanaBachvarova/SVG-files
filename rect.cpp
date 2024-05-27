@@ -12,7 +12,7 @@ Rect::Rect(Point vertex, double width, double height, std::string colour) : vert
 
 void Rect::print() const
 {
-    std::cout << "rect " << vertex.x << " " << vertex.y << " " << width << " " << height << " " << colour << std::endl;
+    std::cout << "rectangle " << vertex.x << " " << vertex.y << " " << width << " " << height << " " << colour << std::endl;
 }
 
 std::string Rect::toSVG() const
@@ -56,4 +56,9 @@ bool Rect::withinCircle(double cx, double cy, double radius) const
     }
 
     return false;
+}
+
+std::string Rect::getType() const
+{
+    return "rectangle";
 }
