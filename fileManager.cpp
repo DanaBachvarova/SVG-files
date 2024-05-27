@@ -128,13 +128,18 @@ bool FileManager::saveFileAs(const std::string &newPath) const
 
 void FileManager::displayHelp() const
 {
-    std::cout << "Supported commands" << std::endl
-              << "open <file>" << std::endl
-              << "close" << std::endl
-              << "save" << std::endl
-              << "saveas" << std::endl
-              << "help" << std::endl
-              << "exit" << std::endl;
+    std::cout << "Supported commands:" << std::endl
+              << "open <file>    " << "     - opens file by path" << std::endl
+              << "close          " << "     - closes loaded file" << std::endl
+              << "save           " << "     - saves changes" << std::endl
+              << "saveas         " << "     - saves changes in another file" << std::endl
+              << "help           " << "     - shows supported commands" << std::endl
+              << "exit           " << "     - terminates the program" << std::endl
+              << "print          " << "     - prints all figures" << std::endl
+              << "create         " << "     - creates and adds new figure to the file" << std::endl
+              << "erase <n>      " << "     - removes the figure with index n" << std::endl
+              << "translate [<n>]" << "     - translates all figures or the figure with index n" << std::endl
+              << "within <option>" << "     - shows all figures located within a figure" << std::endl;
 }
 
 void FileManager::exit()
@@ -152,7 +157,7 @@ void FileManager::exit()
         figuresInFile.clear();
     }
 
-    std::cout<<"Exit\n";
+    std::cout << "Exit\n";
 }
 
 std::vector<std::string> FileManager::getContents() const
@@ -167,7 +172,7 @@ std::vector<Figure *> FileManager::getFiguresInFile() const
 
 void FileManager::erase(std::size_t index)
 {
-    std::cout<<"Successfully erased "<<figuresInFile[index-1]->getType()<<"("<<index<<")\n";
+    std::cout << "Successfully erased " << figuresInFile[index - 1]->getType() << "(" << index << ")\n";
     figuresInFile.erase(figuresInFile.begin() + index - 1);
 }
 
@@ -178,14 +183,14 @@ void FileManager::translateAll(double vertical, double horizontal)
         figure->translate(vertical, horizontal);
     }
 
-    std::cout<<"Translated all figures!\n";
+    std::cout << "Translated all figures!\n";
 }
 
 void FileManager::translateByIndex(size_t index, double vertical, double horizontal)
 {
     figuresInFile[index]->translate(vertical, horizontal);
 
-    std::cout<<"Translated figure ("<<index<<")!\n";
+    std::cout << "Translated figure (" << index << ")!\n";
 }
 
 void FileManager::print() const
@@ -202,7 +207,7 @@ void FileManager::create(std::vector<std::string> tokens)
     {
         if (tokens.size() != 7)
         {
-            std::cout<<"Invalid figure!\n";
+            std::cout << "Invalid figure!\n";
             return;
         }
 
@@ -212,38 +217,38 @@ void FileManager::create(std::vector<std::string> tokens)
         double height = std::stod(tokens[5]);
 
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
-        std::cout<<"Successfully created rectangle ("<<figuresInFile.size()+1<<")!\n";
+        std::cout << "Successfully created rectangle (" << figuresInFile.size() + 1 << ")!\n";
     }
     else if (tokens[1] == "circle")
     {
         if (tokens.size() != 6)
         {
-            std::cout<<"Invalid figure!\n";
+            std::cout << "Invalid figure!\n";
             return;
         }
-        
+
         double cx = std::stod(tokens[2]);
         double cy = std::stod(tokens[3]);
         double radius = std::stod(tokens[4]);
 
         figuresInFile.push_back(new Circle(Point{cx, cy}, radius, tokens[5]));
-        std::cout<<"Successfully created circle!\n";
+        std::cout << "Successfully created circle!\n";
     }
     else if (tokens[1] == "line")
     {
         if (tokens.size() != 7)
         {
-            std::cout<<"Invalid figure!\n";
+            std::cout << "Invalid figure!\n";
             return;
         }
-        
+
         double sx = std::stod(tokens[2]);
         double sy = std::stod(tokens[3]);
         double ex = std::stod(tokens[4]);
         double ey = std::stod(tokens[5]);
 
         figuresInFile.push_back(new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]));
-        std::cout<<"Successfully created line!\n";
+        std::cout << "Successfully created line!\n";
     }
     else
     {
@@ -265,7 +270,7 @@ void FileManager::withinRect(double vx, double vy, double width, double height)
 
     if (empty)
     {
-        std::cout<<"No figures are located within rectangle "<<vx<<" "<<vy<<" "<<width<<" "<<height<<std::endl; 
+        std::cout << "No figures are located within rectangle " << vx << " " << vy << " " << width << " " << height << std::endl;
     }
 }
 
@@ -283,7 +288,7 @@ void FileManager::withinCircle(double cx, double cy, double r)
 
     if (empty)
     {
-        std::cout<<"No figures are located within circle "<<cx<<" "<<cy<<" "<<r<<std::endl; 
+        std::cout << "No figures are located within circle " << cx << " " << cy << " " << r << std::endl;
     }
 }
 
