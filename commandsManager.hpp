@@ -27,5 +27,6 @@ private:
     std::vector<std::string> command;
     bool programTerminated;
     bool fileLoaded;
+    bool savedChanges;
 };
 

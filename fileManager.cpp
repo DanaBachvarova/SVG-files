@@ -98,6 +98,7 @@ bool FileManager::saveFile() const
 
     file.close();
     std::cout << "Successfully saved file " << filePath << std::endl;
+
     return true;
 }
 
@@ -127,6 +128,7 @@ bool FileManager::saveFileAs(const std::string &newPath) const
 
     file.close();
     std::cout << "Successfully saved file " << newPath << std::endl;
+
     return true;
 }
 
@@ -221,7 +223,7 @@ void FileManager::create(std::vector<std::string> tokens)
         double height = std::stod(tokens[5]);
 
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
-        std::cout << "Successfully created rectangle (" << figuresInFile.size() + 1 << ")!\n";
+        std::cout << "Successfully created rectangle (" << figuresInFile.size() << ")!\n";
     }
     else if (tokens[1] == "circle")
     {
@@ -236,7 +238,7 @@ void FileManager::create(std::vector<std::string> tokens)
         double radius = std::stod(tokens[4]);
 
         figuresInFile.push_back(new Circle(Point{cx, cy}, radius, tokens[5]));
-        std::cout << "Successfully created circle!\n";
+        std::cout << "Successfully created circle (" << figuresInFile.size() << ")!\n";
     }
     else if (tokens[1] == "line")
     {
@@ -252,7 +254,7 @@ void FileManager::create(std::vector<std::string> tokens)
         double ey = std::stod(tokens[5]);
 
         figuresInFile.push_back(new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]));
-        std::cout << "Successfully created line!\n";
+        std::cout << "Successfully created line (" << figuresInFile.size() << ")!\n";
     }
     else
     {

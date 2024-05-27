@@ -18,7 +18,7 @@ CommandsManager &CommandsManager::getInstance()
     return instance;
 }
 
-CommandsManager::CommandsManager() : fileLoaded(false), programTerminated(false) {}
+CommandsManager::CommandsManager() : fileLoaded(false), programTerminated(false), savedChanges(true) {}
 
 void CommandsManager::getCommand(std::string &input)
 {
@@ -48,7 +48,7 @@ void CommandsManager::parseAndExecute()
     {
         if (fileLoaded)
         {
-            std::cout<<"File already loaded!\n";
+            std::cout << "File already loaded!\n";
             return;
         }
 
@@ -77,7 +77,7 @@ void CommandsManager::parseAndExecute()
     {
         if (!fileLoaded)
         {
-            std::cout<<"No file loaded!\n";
+            std::cout << "No file loaded!\n";
             return;
         }
 
@@ -100,7 +100,7 @@ void CommandsManager::parseAndExecute()
     {
         if (!fileLoaded)
         {
-            std::cout<<"No file loaded!\n";
+            std::cout << "No file loaded!\n";
             return;
         }
 
@@ -118,7 +118,7 @@ void CommandsManager::parseAndExecute()
     {
         if (!fileLoaded)
         {
-            std::cout<<"No file loaded!\n";
+            std::cout << "No file loaded!\n";
             return;
         }
 
@@ -174,7 +174,7 @@ void CommandsManager::parseAndExecute()
 
         if (FileManager::getInstance().getFiguresInFileSize() == 0)
         {
-            std::cout<<"No figures in current file!\n";
+            std::cout << "No figures in current file!\n";
             return;
         }
 
@@ -191,6 +191,7 @@ void CommandsManager::parseAndExecute()
         }
 
         FileManager::getInstance().create(command);
+        return;
     }
 
     if (mainCommand == "erase")
@@ -307,6 +308,9 @@ void CommandsManager::parseAndExecute()
         std::cout << "Unsupported region: " << regionType << std::endl;
         return;
     }
+
+    std::cout << "Invalid command. See help for more information!\n";
+    return;
 }
 
 void CommandsManager::run()
