@@ -121,7 +121,7 @@ void CommandsManager::parseAndExecute()
             std::cout<<"No file loaded!\n";
             return;
         }
-        
+
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";
@@ -169,6 +169,12 @@ void CommandsManager::parseAndExecute()
         if (command.size() > 1)
         {
             std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        if (FileManager::getInstance().getFiguresInFileSize() == 0)
+        {
+            std::cout<<"No figures in current file!\n";
             return;
         }
 
@@ -238,6 +244,13 @@ void CommandsManager::parseAndExecute()
         }
 
         size_t index = std::stoi(command[1]);
+
+        if (index <= 0 || index > FileManager::getInstance().getFiguresInFileSize())
+        {
+            std::cout << "There is no figure number " << index << "!\n";
+            return;
+        }
+
         command[2] = command[2].substr(9);
         command[3] = command[3].substr(11);
 

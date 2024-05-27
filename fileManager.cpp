@@ -188,23 +188,16 @@ void FileManager::translateAll(double vertical, double horizontal)
 
 void FileManager::translateByIndex(size_t index, double vertical, double horizontal)
 {
-    figuresInFile[index]->translate(vertical, horizontal);
+    figuresInFile[index - 1]->translate(vertical, horizontal);
 
     std::cout << "Translated figure (" << index << ")!\n";
 }
 
 void FileManager::print() const
 {
-    if (figuresInFile.size() == 0)
+    for (auto figure : figuresInFile)
     {
-        std::cout << "No figures in current file!\n";
-    }
-    else
-    {
-        for (auto figure : figuresInFile)
-        {
-            figure->print();
-        }
+        figure->print();
     }
 }
 

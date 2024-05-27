@@ -8,7 +8,6 @@ class Rect : public Figure
 public:
     Rect(Point, double, double, std::string);
     void print() const;
-    bool within(std::string) const;
     std::string toSVG() const;
     void translate(double, double);
     bool withinRect(double, double, double, double) const;

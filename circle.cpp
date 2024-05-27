@@ -17,11 +17,6 @@ void Circle::print() const
     std::cout << "circle " << center.x << " " << center.y << " " << radius << " " << colour << std::endl;
 }
 
-bool Circle::within(const std::string &userInput) const
-{
-    return false;
-}
-
 std::string Circle::toSVG() const
 {
     std::string result = "<circle cx=\"" + std::to_string(center.x) + "\" cy=\"" + std::to_string(center.y) + "\" r=\"" + std::to_string(radius) + "\" fill=\"" + colour + "\" />";
