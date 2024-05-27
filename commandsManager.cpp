@@ -1,5 +1,5 @@
+#include "commandsManager.hpp"
 #include "fileManager.hpp"
-#include "figuresManager.hpp"
 #include "SVGParser.hpp"
 #include "figure.hpp"
 #include "circle.hpp"
@@ -11,7 +11,6 @@
 #include <vector>
 #include <string>
 #include <cstring>
-#include "commandsManager.hpp"
 
 CommandsManager &CommandsManager::getInstance()
 {
@@ -19,45 +18,255 @@ CommandsManager &CommandsManager::getInstance()
     return instance;
 }
 
-CommandsManager::CommandsManager() {}
+CommandsManager::CommandsManager() : fileLoaded(false), programTerminated(false) {}
 
 void CommandsManager::getCommand(std::string &input)
 {
+    command.clear();
     std::istringstream iss(input);
     std::string token;
-    std::vector<std::string> tokens;
 
     while (std::getline(iss, token, ' '))
     {
         if (!token.empty())
         {
-            tokens.push_back(token);
+            command.push_back(token);
         }
     }
+}
 
-    if (tokens[0] == "open"){
-
-    } else if (tokens[0] == "close"){
-
-    } else if (tokens[0] == "save"){
-
-    } else if (tokens[0] == "save as"){
-
-    } else if (tokens[0] == "help"){
-
-    } else if (tokens[0] == "print"){
-
-    } else if (tokens[0] == "create"){
-
-    } else if (tokens[0] == "erase"){
-
-    } else if (tokens[0] == "translate"){
-        
-    } else if (tokens[0] == "within"){
-
-    } else if (tokens[0] == "exit"){
-
-    } else {
-        throw std::invalid_argument("Invalid command: " + tokens[0]);
+void CommandsManager::execute()
+{
+    if (command.size() == 0)
+    {
+        return;
     }
+
+    std::string mainCommand = command[0];
+
+    if (mainCommand == "open")
+    {
+        if (command.size() == 1)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        if (command.size() > 2)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        std::string path = command[1];
+        FileManager::getInstance().openFile(path);
+        if (FileManager::getInstance().getFileLoaded())
+        {
+            fileLoaded = true;
+        }
+        return;
+    }
+
+    if (mainCommand == "close")
+    {
+        if (command.size() > 1)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().closeFile();
+        if (!FileManager::getInstance().getFileLoaded())
+        {
+            fileLoaded = false;
+        }
+        
+        return;
+    }
+
+    if (mainCommand == "save")
+    {
+        if (command.size() > 1)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().saveFile();
+        return;
+    }
+
+    if (mainCommand == "saveas")
+    {
+        if (command.size() == 1)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        if (command.size() > 2)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        std::string path = command[1];
+        FileManager::getInstance().saveFileAs(path);
+        return;
+    }
+
+    if (mainCommand == "help")
+    {
+        if (command.size() > 1)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().displayHelp();
+        return;
+    }
+
+    if (mainCommand == "exit")
+    {
+        if (command.size() > 1)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().exit();
+        programTerminated = true;
+        return;
+    }
+
+    if (mainCommand == "print")
+    {
+        if (command.size() > 1)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().print();
+        return;
+    }
+
+    if (mainCommand == "create")
+    {
+        if (command.size() == 1)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        FileManager::getInstance().create(command);
+    }
+
+    if (mainCommand == "erase")
+    {
+        if (command.size() == 1)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        if (command.size() > 2)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        size_t index = std::stoi(command[1]);
+        FileManager::getInstance().erase(index);
+        return;
+    }
+
+    if (mainCommand == "translate")
+    {
+        if (command.size() < 3)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        if (command.size() > 4)
+        {
+            std::cout << "Expected fewer arguments!\n";
+            return;
+        }
+
+        if (command.size() == 3)
+        {
+            command[1] = command[1].substr(9);
+            command[2] = command[2].substr(11);
+
+            double v = std::stod(command[1]);
+            double h = std::stod(command[2]);
+
+            FileManager::getInstance().translateAll(v, h);
+            return;
+        }
+
+        size_t index = std::stoi(command[1]);
+        command[2] = command[2].substr(9);
+        command[3] = command[3].substr(11);
+
+        double v = std::stod(command[2]);
+        double h = std::stod(command[3]);
+
+        FileManager::getInstance().translateByIndex(index, v, h);
+        return;
+    }
+
+    if (mainCommand == "within")
+    {
+        if (command.size() == 1)
+        {
+            std::cout << "Expected more arguments!\n";
+            return;
+        }
+
+        std::string regionType = command[1];
+
+        if (regionType == "rectangle")
+        {
+            if (command.size() != 6)
+            {
+                std::cout<<"Invalid region!\n";
+                return;
+            }
+
+            double vx = std::stod(command[2]);
+            double vy = std::stod(command[3]);
+            double width = std::stod(command[4]);
+            double height = std::stod(command[5]);
+
+            FileManager::getInstance().withinRect(vx, vy, width, height);
+            return;
+        }
+
+        if (regionType == "circle")
+        {
+            if (command.size() != 5)
+            {
+                std::cout<<"Invalid region!\n";
+                return;
+            }
+
+            double cx = std::stod(command[2]);
+            double cy = std::stod(command[3]);
+            double r = std::stod(command[4]);
+
+            FileManager::getInstance().withinCircle(cx, cy, r);
+            return;
+        }
+
+        std::cout<<"Unsupported region: "<<regionType<<std::endl;
+        return;
+    }
+}
+
+void CommandsManager::run()
+{
 }

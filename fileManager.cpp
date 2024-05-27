@@ -97,7 +97,7 @@ bool FileManager::saveFile() const
         std::cout<<i<<std::endl;
     }
 
-    file << "<svg/>" << std::endl;
+    file << "</svg>" << std::endl;
 
     file.close();
     std::cout << "Successfully saved file " << filePath << std::endl;
@@ -140,6 +140,22 @@ void FileManager::displayHelp() const
               << "exit" << std::endl;
 }
 
+void FileManager::exit()
+{
+    if (fileLoaded)
+    {
+        fileContents.clear();
+        fileLoaded = false;
+
+        for (auto figure : figuresInFile)
+        {
+            delete figure;
+        }
+
+        figuresInFile.clear();
+    }
+}
+
 std::vector<std::string> FileManager::getContents() const
 {
     return fileContents;
@@ -162,60 +178,115 @@ void FileManager::translateAll(double vertical, double horizontal)
     {
         figure->translate(vertical, horizontal);
     }
+
+    std::cout<<"Translated all figures!\n";
+}
+
+void FileManager::translateByIndex(size_t index, double vertical, double horizontal)
+{
+    figuresInFile[index]->translate(vertical, horizontal);
+
+    std::cout<<"Translated figure ("<<index<<")!\n";
 }
 
 void FileManager::print() const
 {
-    std::vector<Figure *> figures = FileManager::getInstance().getFiguresInFile();
-
-    for (auto figure : figures)
+    for (auto figure : figuresInFile)
     {
         figure->print();
     }
 }
 
-Figure *FileManager::create(std::string &input)
+void FileManager::create(std::vector<std::string> tokens)
 {
-    std::istringstream iss(input);
-    std::string token;
-    std::vector<std::string> tokens;
+    // std::istringstream iss(input);
+    // std::string token;
+    // std::vector<std::string> tokens;
 
-    while (std::getline(iss, token, ' '))
-    {
-        if (!token.empty())
-        {
-            tokens.push_back(token);
-        }
-    }
+    // while (std::getline(iss, token, ' '))
+    // {
+    //     if (!token.empty())
+    //     {
+    //         tokens.push_back(token);
+    //     }
+    // }
 
     if (tokens[1] == "rectangle")
     {
+        if (tokens.size() != 7)
+        {
+            std::cout<<"Invalid figure!\n";
+            return;
+        }
+
         double vx = std::stod(tokens[2]);
         double vy = std::stod(tokens[3]);
         double width = std::stod(tokens[4]);
         double height = std::stod(tokens[5]);
 
-        return new Rect(Point{vx, vy}, width, height, tokens[6]);
+        figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
+        std::cout<<"Successfully created rectangle!\n";
     }
     else if (tokens[1] == "circle")
     {
+        if (tokens.size() != 6)
+        {
+            std::cout<<"Invalid figure!\n";
+            return;
+        }
+        
         double cx = std::stod(tokens[2]);
         double cy = std::stod(tokens[3]);
         double radius = std::stod(tokens[4]);
 
-        return new Circle(Point{cx, cy}, radius, tokens[5]);
+        figuresInFile.push_back(new Circle(Point{cx, cy}, radius, tokens[5]));
+        std::cout<<"Successfully created circle!\n";
     }
     else if (tokens[1] == "line")
     {
+        if (tokens.size() != 7)
+        {
+            std::cout<<"Invalid figure!\n";
+            return;
+        }
+        
         double sx = std::stod(tokens[2]);
         double sy = std::stod(tokens[3]);
         double ex = std::stod(tokens[4]);
         double ey = std::stod(tokens[5]);
 
-        return new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]);
+        figuresInFile.push_back(new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]));
+        std::cout<<"Successfully created line!\n";
     }
     else
     {
         throw std::invalid_argument("Invalid figure type: " + tokens[1]);
     }
+}
+
+void FileManager::withinRect(double vx, double vy, double width, double height)
+{
+    for (auto figure : figuresInFile)
+    {
+        if (figure->withinRect(vx, vy, width, height))
+        {
+            figure->print();
+        }
+    }
+}
+
+void FileManager::withinCircle(double cx, double cy, double r)
+{
+    for (auto figure : figuresInFile)
+    {
+        if (figure->withinCircle(cx, cy, r))
+        {
+            figure->print();
+        }
+    }
+}
+
+bool FileManager::getFileLoaded()
+{
+    return fileLoaded;
 }

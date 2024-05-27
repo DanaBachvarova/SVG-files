@@ -15,14 +15,17 @@ public:
     bool saveFile() const;
     bool saveFileAs(const std::string&) const;
     void displayHelp() const;
+    void exit();
     std::vector<std::string> getContents() const;
     std::vector<Figure*> getFiguresInFile() const;
     void erase(std::size_t);
     void translateAll(double, double);
+    void translateByIndex(size_t, double, double);
     void print() const;
-    Figure* create(std::string&);
-
-    
+    void create(std::vector<std::string>);
+    void withinRect(double, double, double, double);
+    void withinCircle(double, double, double);
+    bool getFileLoaded();
 
 private:
     std::string filePath;

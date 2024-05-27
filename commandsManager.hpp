@@ -1,5 +1,4 @@
 #include "fileManager.hpp"
-#include "figuresManager.hpp"
 #include "SVGParser.hpp"
 #include "figure.hpp"
 #include "circle.hpp"
@@ -17,10 +16,16 @@ class CommandsManager
 public:
     static CommandsManager& getInstance();
     void getCommand(std::string&);
+    void execute();
+    void run();
 
 private:
     CommandsManager();
     CommandsManager(CommandsManager const&) = delete;
     void operator=(CommandsManager const&) = delete;
+
+    std::vector<std::string> command;
+    bool programTerminated;
+    bool fileLoaded;
 };
 
