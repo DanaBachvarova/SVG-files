@@ -195,9 +195,16 @@ void FileManager::translateByIndex(size_t index, double vertical, double horizon
 
 void FileManager::print() const
 {
-    for (auto figure : figuresInFile)
+    if (figuresInFile.size() == 0)
     {
-        figure->print();
+        std::cout << "No figures in current file!\n";
+    }
+    else
+    {
+        for (auto figure : figuresInFile)
+        {
+            figure->print();
+        }
     }
 }
 
