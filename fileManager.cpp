@@ -172,7 +172,7 @@ std::vector<Figure *> FileManager::getFiguresInFile() const
 
 void FileManager::erase(std::size_t index)
 {
-    std::cout << "Successfully erased " << figuresInFile[index - 1]->getType() << "(" << index << ")\n";
+    std::cout << "Successfully erased " << figuresInFile[index - 1]->getType() << " (" << index << ")!\n";
     figuresInFile.erase(figuresInFile.begin() + index - 1);
 }
 
