@@ -178,7 +178,7 @@ void CommandsManager::parseAndExecute()
         }
 
         size_t index = std::stoi(command[1]);
-        if (index > FileManager::getInstance().getFiguresInFileSize())
+        if (index > FileManager::getInstance().getFiguresInFileSize() || index <= 0)
         {
             std::cout << "There is no figure number " << index << "!\n";
         }
