@@ -13,6 +13,7 @@ public:
     bool withinRect(double, double, double, double) const;
     bool withinCircle(double, double, double) const;
     std::string getType() const;
+    Point getCenter() const;
 
 private:
     Point center;

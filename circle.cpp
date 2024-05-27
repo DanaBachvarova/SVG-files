@@ -56,3 +56,8 @@ std::string Circle::getType() const
 {
     return "circle";
 }
+
+Point Circle::getCenter() const
+{
+    return center;
+}

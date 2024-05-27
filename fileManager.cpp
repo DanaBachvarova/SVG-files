@@ -116,10 +116,14 @@ bool FileManager::saveFileAs(const std::string &newPath) const
         return false;
     }
 
+    file << "<svg>" << std::endl;
+
     for (size_t i; i < figuresInFile.size(); i++)
     {
         file << figuresInFile[i]->toSVG() << std::endl;
     }
+
+    file << "</svg>" << std::endl;
 
     file.close();
     std::cout << "Successfully saved file " << newPath << std::endl;
