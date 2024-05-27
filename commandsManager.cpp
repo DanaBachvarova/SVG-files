@@ -181,6 +181,7 @@ void CommandsManager::parseAndExecute()
         if (index > FileManager::getInstance().getFiguresInFileSize() || index <= 0)
         {
             std::cout << "There is no figure number " << index << "!\n";
+            return;
         }
         FileManager::getInstance().erase(index);
         return;

@@ -196,18 +196,6 @@ void FileManager::print() const
 
 void FileManager::create(std::vector<std::string> tokens)
 {
-    // std::istringstream iss(input);
-    // std::string token;
-    // std::vector<std::string> tokens;
-
-    // while (std::getline(iss, token, ' '))
-    // {
-    //     if (!token.empty())
-    //     {
-    //         tokens.push_back(token);
-    //     }
-    // }
-
     if (tokens[1] == "rectangle")
     {
         if (tokens.size() != 7)
@@ -222,7 +210,7 @@ void FileManager::create(std::vector<std::string> tokens)
         double height = std::stod(tokens[5]);
 
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
-        std::cout<<"Successfully created rectangle!\n";
+        std::cout<<"Successfully created rectangle ("<<figuresInFile.size()+1<<")!\n";
     }
     else if (tokens[1] == "circle")
     {
@@ -263,23 +251,37 @@ void FileManager::create(std::vector<std::string> tokens)
 
 void FileManager::withinRect(double vx, double vy, double width, double height)
 {
+    bool empty = true;
     for (auto figure : figuresInFile)
     {
         if (figure->withinRect(vx, vy, width, height))
         {
             figure->print();
+            empty = false;
         }
+    }
+
+    if (empty)
+    {
+        std::cout<<"No figures are located within rectangle "<<vx<<" "<<vy<<" "<<width<<" "<<height<<std::endl; 
     }
 }
 
 void FileManager::withinCircle(double cx, double cy, double r)
 {
+    bool empty = true;
     for (auto figure : figuresInFile)
     {
         if (figure->withinCircle(cx, cy, r))
         {
             figure->print();
+            empty = false;
         }
+    }
+
+    if (empty)
+    {
+        std::cout<<"No figures are located within circle "<<cx<<" "<<cy<<" "<<r<<std::endl; 
     }
 }
 
