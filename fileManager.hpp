@@ -26,6 +26,7 @@ public:
     void withinRect(double, double, double, double);
     void withinCircle(double, double, double);
     bool getFileLoaded();
+    size_t getFiguresInFileSize();
 
 private:
     std::string filePath;

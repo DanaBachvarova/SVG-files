@@ -16,7 +16,7 @@ class CommandsManager
 public:
     static CommandsManager& getInstance();
     void getCommand(std::string&);
-    void execute();
+    void parseAndExecute();
     void run();
 
 private:

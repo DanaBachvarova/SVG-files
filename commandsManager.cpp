@@ -35,7 +35,7 @@ void CommandsManager::getCommand(std::string &input)
     }
 }
 
-void CommandsManager::execute()
+void CommandsManager::parseAndExecute()
 {
     if (command.size() == 0)
     {
@@ -80,7 +80,7 @@ void CommandsManager::execute()
         {
             fileLoaded = false;
         }
-        
+
         return;
     }
 
@@ -178,6 +178,10 @@ void CommandsManager::execute()
         }
 
         size_t index = std::stoi(command[1]);
+        if (index > FileManager::getInstance().getFiguresInFileSize())
+        {
+            std::cout << "There is no figure number " << index << "!\n";
+        }
         FileManager::getInstance().erase(index);
         return;
     }
@@ -233,7 +237,7 @@ void CommandsManager::execute()
         {
             if (command.size() != 6)
             {
-                std::cout<<"Invalid region!\n";
+                std::cout << "Invalid region!\n";
                 return;
             }
 
@@ -250,7 +254,7 @@ void CommandsManager::execute()
         {
             if (command.size() != 5)
             {
-                std::cout<<"Invalid region!\n";
+                std::cout << "Invalid region!\n";
                 return;
             }
 
@@ -262,11 +266,23 @@ void CommandsManager::execute()
             return;
         }
 
-        std::cout<<"Unsupported region: "<<regionType<<std::endl;
+        std::cout << "Unsupported region: " << regionType << std::endl;
         return;
     }
 }
 
 void CommandsManager::run()
 {
+    while (!programTerminated)
+    {
+        std::string input;
+        std::cout << "> ";
+
+        std::getline(std::cin, input);
+
+        getCommand(input);
+        parseAndExecute();
+    }
+
+    return;
 }

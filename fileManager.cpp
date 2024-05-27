@@ -94,7 +94,6 @@ bool FileManager::saveFile() const
     for (size_t i = 0; i < figuresInFile.size(); i++)
     {
         file << figuresInFile[i]->toSVG() << std::endl;
-        std::cout<<i<<std::endl;
     }
 
     file << "</svg>" << std::endl;
@@ -168,7 +167,7 @@ std::vector<Figure *> FileManager::getFiguresInFile() const
 
 void FileManager::erase(std::size_t index)
 {
-    figuresInFile.erase(figuresInFile.begin() + index);
+    figuresInFile.erase(figuresInFile.begin() + index + 1);
     std::cout<<"Successfully erased figure."<<std::endl;
 }
 
@@ -289,4 +288,9 @@ void FileManager::withinCircle(double cx, double cy, double r)
 bool FileManager::getFileLoaded()
 {
     return fileLoaded;
+}
+
+size_t FileManager::getFiguresInFileSize()
+{
+    return figuresInFile.size();
 }
