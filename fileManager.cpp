@@ -19,6 +19,13 @@ FileManager &FileManager::getInstance()
 
 FileManager::FileManager() : fileLoaded(false) {}
 
+/**
+ * Opens a file and loads its contents into memory.
+ * If the file does not exist, a new file will be created.
+ * 
+ * @param path The path of the file to be opened.
+ * @return True if the file was successfully opened or created, false otherwise.
+ */
 bool FileManager::openFile(const std::string &path)
 {
     std::ifstream file(path);
@@ -50,6 +57,13 @@ bool FileManager::openFile(const std::string &path)
     return true;
 }
 
+/**
+ * @brief Closes the currently open file.
+ * 
+ * If a file is currently loaded, this function clears the file contents, deletes all figures in the file,
+ * and sets the fileLoaded flag to false. It also prints a success message indicating the file has been closed.
+ * If no file is currently open, it prints a message indicating that no file is open.
+ */
 void FileManager::closeFile()
 {
     if (fileLoaded)
