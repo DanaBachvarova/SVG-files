@@ -10,7 +10,6 @@ public:
     virtual void print() const = 0;
 
     Figure(std::string);
-    std::string getColour() const;
     virtual std::string toSVG() const = 0;
     virtual void translate(double, double) = 0;
     virtual bool withinRect(double, double, double, double) const = 0;
