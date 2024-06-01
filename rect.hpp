@@ -13,6 +13,10 @@ public:
     bool withinRect(double, double, double, double) const;
     bool withinCircle(double, double, double) const;
     std::string getType() const;
+    Point getVertex() const;
+    double getWidth() const;
+    double getHeight() const;
+    std::string getColour() const;
 
 private:
     Point vertex;

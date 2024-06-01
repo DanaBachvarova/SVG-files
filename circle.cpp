@@ -10,6 +10,30 @@
 
 Circle::Circle(Point center, double radius, std::string colour) : center(center), radius(radius), Figure(colour)
 {
+    if (radius < 0)
+    {
+        throw std::invalid_argument("Radius cannot be negative");
+    }
+}
+
+std::string Circle::getType() const
+{
+    return "circle";
+}
+
+Point Circle::getCenter() const
+{
+    return center;
+}
+
+double Circle::getRadius() const
+{
+    return radius;
+}
+
+std::string Circle::getColour() const
+{
+    return colour;
 }
 
 void Circle::print() const
@@ -50,14 +74,4 @@ bool Circle::withinCircle(double cx, double cy, double regionRadius) const
     }
 
     return false;
-}
-
-std::string Circle::getType() const
-{
-    return "circle";
-}
-
-Point Circle::getCenter() const
-{
-    return center;
 }

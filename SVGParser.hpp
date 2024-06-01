@@ -13,6 +13,7 @@ public:
     std::vector<std::string> getTokens();
     std::vector<Figure*> getFiguresFromFile(std::ifstream&);
     Figure* getFigureFromStr(std::string);
+    const std::vector<std::string> getTokens() const;
 
 private:
     SVGParser();

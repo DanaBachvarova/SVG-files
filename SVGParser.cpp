@@ -31,7 +31,7 @@ void SVGParser::splitInput(const std::string &userInput)
     }
 }
 
-std::vector<std::string> SVGParser::getTokens()
+const std::vector<std::string> SVGParser::getTokens() const
 {
     return tokens;
 }

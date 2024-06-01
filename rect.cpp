@@ -8,7 +8,38 @@
 #include <sstream>
 #include <cmath>
 
-Rect::Rect(Point vertex, double width, double height, std::string colour) : vertex(vertex), width(width), height(height), Figure(colour) {}
+Rect::Rect(Point vertex, double width, double height, std::string colour) : vertex(vertex), width(width), height(height), Figure(colour)
+{
+    if (width < 0 || height < 0)
+    {
+        throw std::invalid_argument("Width and height cannot be negative");
+    }
+}
+
+std::string Rect::getType() const
+{
+    return "rectangle";
+}
+
+Point Rect::getVertex() const
+{
+    return vertex;
+}
+
+double Rect::getWidth() const
+{
+    return width;
+}
+
+double Rect::getHeight() const
+{
+    return height;
+}
+
+std::string Rect::getColour() const
+{
+    return colour;
+}
 
 void Rect::print() const
 {
@@ -56,9 +87,4 @@ bool Rect::withinCircle(double cx, double cy, double radius) const
     }
 
     return false;
-}
-
-std::string Rect::getType() const
-{
-    return "rectangle";
 }

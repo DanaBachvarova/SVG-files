@@ -14,6 +14,8 @@ public:
     bool withinCircle(double, double, double) const;
     std::string getType() const;
     Point getCenter() const;
+    double getRadius() const;
+    std::string getColour() const;
 
 private:
     Point center;

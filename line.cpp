@@ -12,6 +12,26 @@ Line::Line(Point start, Point end, std::string colour) : start(start), end(end),
 {
 }
 
+std::string Line::getType() const
+{
+    return "line";
+}
+
+Point Line::getStart() const
+{
+    return start;
+}
+
+Point Line::getEnd() const
+{
+    return end;
+}
+
+std::string Line::getColour() const
+{
+    return colour;
+}
+
 void Line::print() const
 {
     std::cout << "line " << start.x << " " << start.y << " " << end.x << " " << end.y << " " << colour << std::endl;
@@ -57,9 +77,4 @@ bool Line::withinCircle(double cx, double cy, double radius) const
     {
         return false;
     }
-}
-
-std::string Line::getType() const
-{
-    return "line";
 }
