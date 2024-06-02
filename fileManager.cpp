@@ -4,6 +4,8 @@
 #include "circle.hpp"
 #include "line.hpp"
 #include "rect.hpp"
+#include "commandsManager.hpp"
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -85,6 +87,7 @@ void FileManager::closeFile()
             std::cout<<"> ";
 
             std::cin >> answer;
+            std::cin.ignore();
 
             if (answer == "yes")
             {
@@ -323,7 +326,7 @@ void FileManager::create(std::vector<std::string> tokens)
     }
     else
     {
-        throw std::invalid_argument("Invalid figure type: " + tokens[1]);
+        std::cout<<"Invalid figure type!\n";
     }
 }
 

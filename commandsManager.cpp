@@ -20,6 +20,7 @@ CommandsManager &CommandsManager::getInstance()
 
 CommandsManager::CommandsManager() : fileLoaded(false), programTerminated(false), savedChanges(true) {}
 
+
 void CommandsManager::getCommand(std::string &input)
 {
     command.clear();
@@ -293,7 +294,7 @@ void CommandsManager::parseAndExecute()
             std::cout << "No file currently open!\n";
             return;
         }
-        
+
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";
@@ -358,3 +359,5 @@ void CommandsManager::run()
 
     return;
 }
+
+
