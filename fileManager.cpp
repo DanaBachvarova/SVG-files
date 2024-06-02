@@ -287,6 +287,12 @@ void FileManager::create(std::vector<std::string> tokens)
         double width = std::stod(tokens[4]);
         double height = std::stod(tokens[5]);
 
+        if (width <= 0 || height <= 0)
+        {
+            std::cout << "Width and height cannot be negative!\n";
+            return;
+        }   
+
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
         std::cout << "Successfully created rectangle (" << figuresInFile.size() << ")!\n";
         savedChanges = false;
@@ -302,6 +308,12 @@ void FileManager::create(std::vector<std::string> tokens)
         double cx = std::stod(tokens[2]);
         double cy = std::stod(tokens[3]);
         double radius = std::stod(tokens[4]);
+
+        if (radius <= 0)
+        {
+            std::cout << "Radius cannot be negative!\n";
+            return;
+        }
 
         figuresInFile.push_back(new Circle(Point{cx, cy}, radius, tokens[5]));
         std::cout << "Successfully created circle (" << figuresInFile.size() << ")!\n";

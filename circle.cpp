@@ -44,7 +44,7 @@ void Circle::print() const
 
 /**
  * Converts the Circle object to an SVG string representation.
- * 
+ *
  * @return The SVG string representation of the Circle object.
  */
 std::string Circle::toSVG() const
