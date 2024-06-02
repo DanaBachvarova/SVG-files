@@ -177,7 +177,7 @@ void FileManager::exit()
         figuresInFile.clear();
     }
 
-    std::cout << "Exit\n";
+    std::cout << "Exiting...\n";
 }
 
 std::vector<std::string> FileManager::getContents() const
