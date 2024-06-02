@@ -37,6 +37,11 @@ void Line::print() const
     std::cout << "line " << start.x << " " << start.y << " " << end.x << " " << end.y << " " << colour << std::endl;
 }
 
+/**
+ * Converts the Line object to an SVG string representation.
+ *
+ * @return The SVG string representation of the Line object.
+ */
 std::string Line::toSVG() const
 {
     std::string result = "\t<line x1=\"" + std::to_string(start.x) + "\" x2=\"" + std::to_string(start.y) + "\" y1=\"" + std::to_string(end.x) + "\" y2=\"" + std::to_string(end.y) + "\" stroke=\"" + colour + "\" />";

@@ -166,6 +166,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "print")
     {
+        if (!fileLoaded)
+        {
+            std::cout << "No file currently open!\n";
+            return;
+        }
+
         if (command.size() > 1)
         {
             std::cout << "Expected fewer arguments!\n";
@@ -184,6 +190,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "create")
     {
+        if (!fileLoaded)
+        {
+            std::cout << "No file currently open!\n";
+            return;
+        }
+
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";
@@ -196,6 +208,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "erase")
     {
+        if (!fileLoaded)
+        {
+            std::cout << "No file currently open!\n";
+            return;
+        }
+
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";
@@ -220,6 +238,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "translate")
     {
+        if (!fileLoaded)
+        {
+            std::cout << "No file currently open!\n";
+            return;
+        }
+
         if (command.size() < 3)
         {
             std::cout << "Expected more arguments!\n";
@@ -264,6 +288,12 @@ void CommandsManager::parseAndExecute()
 
     if (mainCommand == "within")
     {
+        if (!fileLoaded)
+        {
+            std::cout << "No file currently open!\n";
+            return;
+        }
+        
         if (command.size() == 1)
         {
             std::cout << "Expected more arguments!\n";

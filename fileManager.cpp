@@ -17,7 +17,17 @@ FileManager &FileManager::getInstance()
     return instance;
 }
 
-FileManager::FileManager() : fileLoaded(false) {}
+FileManager::FileManager() : fileLoaded(false), savedChanges(true) {}
+
+bool FileManager::getFileLoaded()
+{
+    return fileLoaded;
+}
+
+size_t FileManager::getFiguresInFileSize()
+{
+    return figuresInFile.size();
+}
 
 /**
  * Opens a file and loads its contents into memory.
@@ -68,6 +78,22 @@ void FileManager::closeFile()
 {
     if (fileLoaded)
     {
+        if (!savedChanges)
+        {
+            std::cout << "There are unsaved changes. Do you want to save them? (yes/no)" << std::endl;
+            std::string answer;
+            std::cout<<"> ";
+
+            std::cin >> answer;
+
+            if (answer == "yes")
+            {
+                saveFile();
+            }
+
+            savedChanges = true;
+        }
+
         fileLoaded = false;
         fileContents.clear();
 
@@ -86,7 +112,7 @@ void FileManager::closeFile()
     }
 }
 
-bool FileManager::saveFile() const
+bool FileManager::saveFile()
 {
     if (!fileLoaded)
     {
@@ -112,11 +138,12 @@ bool FileManager::saveFile() const
 
     file.close();
     std::cout << "Successfully saved file " << filePath << std::endl;
+    savedChanges = true;
 
     return true;
 }
 
-bool FileManager::saveFileAs(const std::string &newPath) const
+bool FileManager::saveFileAs(const std::string &newPath) 
 {
     if (!fileLoaded)
     {
@@ -142,6 +169,7 @@ bool FileManager::saveFileAs(const std::string &newPath) const
 
     file.close();
     std::cout << "Successfully saved file " << newPath << std::endl;
+    savedChanges = true;
 
     return true;
 }
@@ -166,6 +194,22 @@ void FileManager::exit()
 {
     if (fileLoaded)
     {
+        if (!savedChanges)
+        {
+            std::cout << "There are unsaved changes. Do you want to save them? (yes/no)" << std::endl;
+            std::string answer;
+            std::cout<<"> ";
+
+            std::cin >> answer;
+
+            if (answer == "yes")
+            {
+                saveFile();
+            }
+        }
+
+        savedChanges = true;
+        
         fileContents.clear();
         fileLoaded = false;
 
@@ -192,8 +236,9 @@ std::vector<Figure *> FileManager::getFiguresInFile() const
 
 void FileManager::erase(std::size_t index)
 {
-    std::cout << "Successfully erased " << figuresInFile[index - 1]->getType() << " (" << index << ")!\n";
     figuresInFile.erase(figuresInFile.begin() + index - 1);
+    std::cout << "Successfully erased " << figuresInFile[index - 1]->getType() << " (" << index << ")!\n";
+    savedChanges = false;
 }
 
 void FileManager::translateAll(double vertical, double horizontal)
@@ -204,6 +249,7 @@ void FileManager::translateAll(double vertical, double horizontal)
     }
 
     std::cout << "Translated all figures!\n";
+    savedChanges = false;
 }
 
 void FileManager::translateByIndex(size_t index, double vertical, double horizontal)
@@ -211,13 +257,15 @@ void FileManager::translateByIndex(size_t index, double vertical, double horizon
     figuresInFile[index - 1]->translate(vertical, horizontal);
 
     std::cout << "Translated figure (" << index << ")!\n";
+    savedChanges = false;
 }
 
 void FileManager::print() const
 {
-    for (auto figure : figuresInFile)
+    for (size_t i = 0; i < figuresInFile.size(); i++)
     {
-        figure->print();
+        std::cout << "(" << i + 1 << ") ";
+        figuresInFile[i]->print();
     }
 }
 
@@ -238,6 +286,7 @@ void FileManager::create(std::vector<std::string> tokens)
 
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
         std::cout << "Successfully created rectangle (" << figuresInFile.size() << ")!\n";
+        savedChanges = false;
     }
     else if (tokens[1] == "circle")
     {
@@ -253,6 +302,7 @@ void FileManager::create(std::vector<std::string> tokens)
 
         figuresInFile.push_back(new Circle(Point{cx, cy}, radius, tokens[5]));
         std::cout << "Successfully created circle (" << figuresInFile.size() << ")!\n";
+        savedChanges = false;
     }
     else if (tokens[1] == "line")
     {
@@ -269,6 +319,7 @@ void FileManager::create(std::vector<std::string> tokens)
 
         figuresInFile.push_back(new Line(Point{sx, sy}, Point{ex, ey}, tokens[6]));
         std::cout << "Successfully created line (" << figuresInFile.size() << ")!\n";
+        savedChanges = false;
     }
     else
     {
@@ -312,12 +363,3 @@ void FileManager::withinCircle(double cx, double cy, double r)
     }
 }
 
-bool FileManager::getFileLoaded()
-{
-    return fileLoaded;
-}
-
-size_t FileManager::getFiguresInFileSize()
-{
-    return figuresInFile.size();
-}

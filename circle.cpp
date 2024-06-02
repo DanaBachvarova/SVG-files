@@ -2,6 +2,7 @@
 #include "figure.hpp"
 #include "point.hpp"
 #include "SVGParser.hpp"
+
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -41,6 +42,11 @@ void Circle::print() const
     std::cout << "circle " << center.x << " " << center.y << " " << radius << " " << colour << std::endl;
 }
 
+/**
+ * Converts the Circle object to an SVG string representation.
+ * 
+ * @return The SVG string representation of the Circle object.
+ */
 std::string Circle::toSVG() const
 {
     std::string result = "\t<circle cx=\"" + std::to_string(center.x) + "\" cy=\"" + std::to_string(center.y) + "\" r=\"" + std::to_string(radius) + "\" fill=\"" + colour + "\" />";

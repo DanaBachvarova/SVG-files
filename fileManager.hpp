@@ -12,8 +12,8 @@ public:
 
     bool openFile(const std::string&);
     void closeFile();
-    bool saveFile() const;
-    bool saveFileAs(const std::string&) const;
+    bool saveFile();
+    bool saveFileAs(const std::string&);
     void displayHelp() const;
     void exit();
     std::vector<std::string> getContents() const;
@@ -27,13 +27,14 @@ public:
     void withinCircle(double, double, double);
     bool getFileLoaded();
     size_t getFiguresInFileSize();
+    void setSavedChanges(bool);
 
 private:
     std::string filePath;
     bool fileLoaded;
     std::vector<std::string> fileContents;
     std::vector<Figure*> figuresInFile;
-    
+    bool savedChanges;
     
     FileManager();
     FileManager(FileManager const&) = delete;

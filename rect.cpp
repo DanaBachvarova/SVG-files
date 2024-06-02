@@ -46,6 +46,11 @@ void Rect::print() const
     std::cout << "rectangle " << vertex.x << " " << vertex.y << " " << width << " " << height << " " << colour << std::endl;
 }
 
+/**
+ * @brief Converts the Rect object to an SVG string representation.
+ * 
+ * @return The SVG string representation of the Rect object.
+ */
 std::string Rect::toSVG() const
 {
     std::string result = "\t<rect x=\"" + std::to_string(vertex.x) + "\" y=\"" + std::to_string(vertex.y) + "\" width=\"" + std::to_string(width) + "\" height=\"" + std::to_string(height) + "\" fill=\"" + colour + "\" />";
