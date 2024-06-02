@@ -8,16 +8,16 @@
 class FileManager
 {
 public:
-    static FileManager& getInstance();
+    static FileManager &getInstance();
 
-    bool openFile(const std::string&);
+    bool openFile(const std::string &);
     void closeFile();
     bool saveFile();
-    bool saveFileAs(const std::string&);
+    bool saveFileAs(const std::string &);
     void displayHelp() const;
     void exit();
     std::vector<std::string> getContents() const;
-    std::vector<Figure*> getFiguresInFile() const;
+    std::vector<Figure *> getFiguresInFile() const;
     void erase(std::size_t);
     void translateAll(double, double);
     void translateByIndex(size_t, double, double);
@@ -33,10 +33,10 @@ private:
     std::string filePath;
     bool fileLoaded;
     std::vector<std::string> fileContents;
-    std::vector<Figure*> figuresInFile;
+    std::vector<Figure *> figuresInFile;
     bool savedChanges;
-    
+
     FileManager();
-    FileManager(FileManager const&) = delete;
-    void operator=(FileManager const&) = delete;
+    FileManager(FileManager const &) = delete;
+    void operator=(FileManager const &) = delete;
 };

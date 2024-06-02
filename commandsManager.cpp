@@ -20,7 +20,6 @@ CommandsManager &CommandsManager::getInstance()
 
 CommandsManager::CommandsManager() : fileLoaded(false), programTerminated(false), savedChanges(true) {}
 
-
 void CommandsManager::getCommand(std::string &input)
 {
     command.clear();
@@ -359,5 +358,3 @@ void CommandsManager::run()
 
     return;
 }
-
-

@@ -48,7 +48,7 @@ void Rect::print() const
 
 /**
  * @brief Converts the Rect object to an SVG string representation.
- * 
+ *
  * @return The SVG string representation of the Rect object.
  */
 std::string Rect::toSVG() const

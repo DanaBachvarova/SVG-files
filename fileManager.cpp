@@ -31,10 +31,20 @@ size_t FileManager::getFiguresInFileSize()
     return figuresInFile.size();
 }
 
+std::vector<std::string> FileManager::getContents() const
+{
+    return fileContents;
+}
+
+std::vector<Figure *> FileManager::getFiguresInFile() const
+{
+    return figuresInFile;
+}
+
 /**
  * Opens a file and loads its contents into memory.
  * If the file does not exist, a new file will be created.
- * 
+ *
  * @param path The path of the file to be opened.
  * @return True if the file was successfully opened or created, false otherwise.
  */
@@ -71,7 +81,7 @@ bool FileManager::openFile(const std::string &path)
 
 /**
  * @brief Closes the currently open file.
- * 
+ *
  * If a file is currently loaded, this function clears the file contents, deletes all figures in the file,
  * and sets the fileLoaded flag to false. It also prints a success message indicating the file has been closed.
  * If no file is currently open, it prints a message indicating that no file is open.
@@ -84,7 +94,7 @@ void FileManager::closeFile()
         {
             std::cout << "There are unsaved changes. Do you want to save them? (yes/no)" << std::endl;
             std::string answer;
-            std::cout<<"> ";
+            std::cout << "> ";
 
             std::cin >> answer;
             std::cin.ignore();
@@ -146,7 +156,7 @@ bool FileManager::saveFile()
     return true;
 }
 
-bool FileManager::saveFileAs(const std::string &newPath) 
+bool FileManager::saveFileAs(const std::string &newPath)
 {
     if (!fileLoaded)
     {
@@ -201,7 +211,7 @@ void FileManager::exit()
         {
             std::cout << "There are unsaved changes. Do you want to save them? (yes/no)" << std::endl;
             std::string answer;
-            std::cout<<"> ";
+            std::cout << "> ";
 
             std::cin >> answer;
 
@@ -212,7 +222,7 @@ void FileManager::exit()
         }
 
         savedChanges = true;
-        
+
         fileContents.clear();
         fileLoaded = false;
 
@@ -225,16 +235,6 @@ void FileManager::exit()
     }
 
     std::cout << "Exiting...\n";
-}
-
-std::vector<std::string> FileManager::getContents() const
-{
-    return fileContents;
-}
-
-std::vector<Figure *> FileManager::getFiguresInFile() const
-{
-    return figuresInFile;
 }
 
 void FileManager::erase(std::size_t index)
@@ -291,7 +291,7 @@ void FileManager::create(std::vector<std::string> tokens)
         {
             std::cout << "Width and height cannot be negative!\n";
             return;
-        }   
+        }
 
         figuresInFile.push_back(new Rect(Point{vx, vy}, width, height, tokens[6]));
         std::cout << "Successfully created rectangle (" << figuresInFile.size() << ")!\n";
@@ -338,7 +338,7 @@ void FileManager::create(std::vector<std::string> tokens)
     }
     else
     {
-        std::cout<<"Invalid figure type!\n";
+        std::cout << "Invalid figure type!\n";
     }
 }
 
@@ -377,4 +377,3 @@ void FileManager::withinCircle(double cx, double cy, double r)
         std::cout << "No figures are located within circle " << cx << " " << cy << " " << r << std::endl;
     }
 }
-

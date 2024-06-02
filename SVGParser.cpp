@@ -53,7 +53,7 @@ std::vector<Figure *> SVGParser::getFiguresFromFile(std::ifstream &file)
             char *figureStrEnd = std::strstr(figureStr, "/>");
             *figureStrEnd = '\0';
             std::string figureString(figureStr);
-            //std::cout << figureString << std::endl;
+            // std::cout << figureString << std::endl;
             figures.push_back(getFigureFromStr(figureStr));
         }
 
@@ -102,7 +102,7 @@ Figure *SVGParser::getFigureFromStr(std::string figureStr)
         double width = std::stod(attributes[2].getValue());
         double height = std::stod(attributes[3].getValue());
 
-        return new Rect(Point{x,y}, width, height, attributes[4].getValue());
+        return new Rect(Point{x, y}, width, height, attributes[4].getValue());
     }
     else if (figureType == "circle")
     {
